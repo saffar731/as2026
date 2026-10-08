@@ -1,0 +1,141 @@
+:root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #161f33;
+    --bg-tertiary: #1f2b45;
+    --border-color: #2a3756;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --accent: #6366f1;
+    --accent-dark: #4f46e5;
+    --topbar-height: 56px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+}
+
+.topbar {
+    height: var(--topbar-height);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 16px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+.topbar-group { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.readout-group { margin-left: auto; }
+.layout-group { display: flex; align-items: center; gap: 10px; }
+
+.btn {
+    padding: 8px 14px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.btn:hover { border-color: var(--accent); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-dark); }
+.btn-secondary { background: transparent; }
+.btn-toggle.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.select {
+    padding: 7px 10px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 13px;
+}
+
+.readout { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+.readout strong { color: var(--text-primary); }
+
+.layout-tabs { display: flex; gap: 4px; }
+.layout-tab {
+    padding: 6px 10px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+}
+.layout-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+#app-main {
+    position: relative;
+    height: calc(100% - var(--topbar-height));
+    display: flex;
+}
+
+.scene-container {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    background: #0a0f1c;
+    transition: flex-basis 0.2s ease;
+}
+.scene-container canvas { display: block; }
+
+.luckysheet-panel {
+    position: relative;
+    width: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-left: 1px solid var(--border-color);
+    transition: width 0.2s ease;
+}
+
+/* Split-screen reveal: toggled by the "View Estimation" button */
+body.estimation-visible .luckysheet-panel { width: 46%; }
+body.estimation-visible .scene-container { flex: 1 1 auto; }
+
+/* ---- Room-name modal ---- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    z-index: 2000;
+}
+.modal-overlay.visible { opacity: 1; pointer-events: auto; }
+
+.modal-card {
+    width: 360px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.modal-card h2 { margin: 0 0 8px; font-size: 18px; }
+.modal-card p { margin: 0 0 16px; font-size: 13px; color: var(--text-secondary); }
+.modal-card input {
+    width: 100%;
+    padding: 10px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+
+@media (max-width: 900px) {
+    .topbar { gap: 10px; }
+    .readout-group { display: none; }
+    body.estimation-visible .luckysheet-panel { width: 100%; position: absolute; inset: 0; z-index: 10; }
+    body.estimation-visible .scene-container { display: none; }
+}

@@ -1,0 +1,2408 @@
+/* ============================================
+   ARCHITECTSAF 2D CAD - FIXED LAYOUT CSS
+   Flat edge-to-edge design, no rounded corners
+   ============================================ */
+
+/* ---------- CSS Variables ---------- */
+:root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --bg-input: #0f172a;
+    --bg-hover: #475569;
+    --bg-active: rgba(99, 102, 241, 0.15);
+
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --text-white: #ffffff;
+
+    --accent-indigo: #6366f1;
+    --accent-indigo-light: #818cf8;
+    --accent-indigo-dark: #4f46e5;
+    --accent-amber: #f59e0b;
+    --accent-rose: #f43f5e;
+    --accent-emerald: #10b981;
+    --accent-orange: #f97316;
+    --accent-purple: #9333ea;
+    --accent-purple-light: #a855f7;
+    --accent-red: #ef4444;
+    --accent-green: #22c55e;
+    --accent-yellow: #facc15;
+    --accent-sky: #0ea5e9;
+
+    --border-color: #334155;
+    --border-light: #475569;
+    --border-focus: #6366f1;
+    --border-active: rgba(99, 102, 241, 0.4);
+
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    --header-height: 48px;
+    --toolbar-width: 56px;
+    --panel-width: 260px;
+    --status-height: 32px;
+    --command-height: 40px;
+    --layout-tabs-height: 32px;
+}
+/* ArchitectSAF Ribbon Button */
+.ribbon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #0f172a;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover State */
+.ribbon-btn:hover {
+  background-color: #1e293b;
+  border-color: #10b981;
+  color: #10b981;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+/* Click / Active State */
+.ribbon-btn:active {
+  transform: translateY(0);
+  background-color: #0f172a;
+  box-shadow: none;
+}
+
+/* Icon Alignment */
+.ribbon-btn i {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+}
+
+.select-none {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ---------- Scrollbar ---------- */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--border-light);
+}
+
+/* ============================================
+   HEADER - FIXED TOP, FULL WIDTH
+   ============================================ */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 1000;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 100%;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo-title {
+    font-weight: 900;
+    font-size: 20px;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.logo-accent {
+    color: var(--accent-indigo-light);
+}
+
+.logo-subtitle {
+    font-size: 9px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+}
+
+/* ---------- History Buttons ---------- */
+.history-group {
+    display: flex;
+    gap: 2px;
+    background: var(--bg-primary);
+    padding: 2px;
+    border: 1px solid var(--border-color);
+    height: 32px;
+    align-items: center;
+}
+
+.history-btn {
+    width: 28px;
+    height: 26px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    font-size: 11px;
+}
+
+.history-btn:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.history-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* ---------- Header Buttons ---------- */
+.header-btn {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    font-size: 13px;
+}
+
+.header-btn:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-light);
+}
+
+/* ---------- Share Button ---------- */
+.share-btn {
+    padding: 6px 14px;
+    background: var(--accent-purple);
+    color: var(--text-white);
+    border: none;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+    height: 32px;
+}
+
+.share-btn:hover {
+    background: var(--accent-purple-light);
+}
+
+/* ---------- View Toggle ---------- */
+.view-toggle {
+    display: flex;
+    gap: 2px;
+    background: var(--bg-primary);
+    padding: 2px;
+    border: 1px solid var(--border-color);
+    height: 32px;
+    align-items: center;
+}
+
+/* ============================================
+   MENU SYSTEM
+   ============================================ */
+.menu-item {
+    position: relative;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 500;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border: none;
+    background: transparent;
+}
+
+.menu-item:hover {
+    background: var(--bg-tertiary);
+}
+
+.menu-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    padding: 4px 0;
+    display: none;
+    z-index: 2000;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.menu-item:hover .menu-dropdown {
+    display: block;
+}
+
+.menu-option {
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.menu-option i {
+    width: 18px;
+    font-size: 11px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.menu-option:hover {
+    background: var(--bg-active);
+    color: var(--text-primary);
+}
+
+.menu-option:hover i {
+    color: var(--accent-indigo-light);
+}
+
+.menu-option .shortcut {
+    margin-left: auto;
+    color: var(--text-muted);
+    font-size: 10px;
+    font-family: var(--font-mono);
+    background: var(--bg-primary);
+    padding: 1px 5px;
+    border: 1px solid var(--border-color);
+}
+
+.menu-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 4px 0;
+}
+
+/* ============================================
+   NAV PILLS
+   ============================================ */
+.nav-pill {
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    transition: all 0.15s ease;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    height: 26px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-active {
+    background: var(--accent-indigo);
+    color: var(--text-white);
+}
+
+.nav-active:hover {
+    background: var(--accent-indigo-light);
+}
+
+.nav-inactive {
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.nav-inactive:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+/* ============================================
+   TOOLBAR - FIXED LEFT, FULL HEIGHT
+   ============================================ */
+.toolbar {
+    position: fixed;
+    left: 0;
+    top: var(--header-height);
+    bottom: var(--command-height);
+    width: var(--toolbar-width);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    z-index: 900;
+    overflow: hidden;
+}
+
+.toolbar-handle {
+    cursor: grab;
+    padding: 12px;
+    color: var(--text-muted);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-color);
+    transition: color 0.15s ease;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.toolbar-handle:hover {
+    color: var(--text-secondary);
+}
+
+.toolbar-handle:active {
+    cursor: grabbing;
+}
+
+.toolbar-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    flex: 1;
+}
+
+/* ---------- Tool Groups ---------- */
+.tool-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px;
+    width: 48px;
+    align-items: center;
+    border: 1px solid transparent;
+}
+
+.tool-group-emerald {
+    background: rgba(16, 185, 129, 0.08);
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.tool-group-indigo {
+    background: rgba(99, 102, 241, 0.08);
+    border-color: rgba(99, 102, 241, 0.2);
+}
+
+.tool-group-amber {
+    background: rgba(245, 158, 11, 0.08);
+    border-color: rgba(245, 158, 11, 0.2);
+}
+
+.tool-group-rose {
+    background: rgba(244, 63, 94, 0.08);
+    border-color: rgba(244, 63, 94, 0.2);
+}
+
+.tool-group-neutral {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+.tool-divider {
+    height: 1px;
+    width: 32px;
+    background: var(--border-color);
+    margin: 2px 0;
+}
+
+/* ---------- Mode Buttons ---------- */
+.mode-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    font-size: 14px;
+}
+
+.mode-btn:hover {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+}
+
+.mode-btn.active {
+    background: var(--bg-active);
+    color: var(--accent-indigo-light);
+    border-left: 3px solid var(--accent-indigo-light);
+    border-right: 3px solid transparent;
+}
+
+.mode-btn-delete {
+    color: var(--accent-rose);
+}
+
+.mode-btn-delete:hover {
+    background: var(--accent-rose);
+    color: var(--text-white);
+}
+
+.mode-btn-clear:hover {
+    background: var(--accent-red);
+    color: var(--text-white);
+}
+
+.mode-btn-toggle {
+    width: 40px;
+    height: 36px;
+    background: var(--bg-primary);
+    font-size: 9px;
+    font-weight: 700;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+}
+
+.mode-btn-toggle:hover {
+    background: var(--accent-sky);
+    color: var(--text-white);
+    border-color: var(--accent-sky);
+}
+
+.mode-btn-setting {
+    width: 40px;
+    height: 36px;
+    background: var(--bg-primary);
+    font-size: 10px;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+}
+
+.mode-btn-setting:hover {
+    background: var(--accent-sky);
+    color: var(--text-white);
+    border-color: var(--accent-sky);
+}
+
+/* ============================================
+   CANVAS - FILLS REMAINING SPACE
+   ============================================ */
+#cad2d-canvas-container {
+    position: fixed;
+    top: var(--header-height);
+    left: var(--toolbar-width);
+    right: 0;
+    bottom: calc(var(--command-height) + var(--status-height) + var(--layout-tabs-height));
+    z-index: 1;
+}
+
+#infinite-canvas {
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+    display: block;
+    background: var(--bg-primary);
+}
+
+/* ============================================
+   SIDE PANELS - FIXED POSITIONING
+   ============================================ */
+.side-panel {
+    position: fixed;
+    top: var(--header-height);
+    width: var(--panel-width);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    z-index: 800;
+    bottom: calc(var(--command-height) + var(--status-height) + var(--layout-tabs-height));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.panel-left {
+    left: var(--toolbar-width);
+    border-left: none;
+}
+
+.panel-right {
+    right: 0;
+    border-right: none;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: grab;
+    flex-shrink: 0;
+    background: var(--bg-tertiary);
+}
+
+.panel-header:active {
+    cursor: grabbing;
+}
+
+.panel-title {
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--accent-indigo-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.panel-title-amber {
+    color: var(--accent-amber);
+}
+
+.panel-actions {
+    display: flex;
+    gap: 6px;
+}
+
+/* ---------- Panel Buttons ---------- */
+.btn-close {
+    font-size: 11px;
+    background: var(--accent-red);
+    color: var(--text-white);
+    border: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-close:hover {
+    background: #dc2626;
+}
+
+.btn-add {
+    font-size: 11px;
+    background: var(--accent-indigo);
+    color: var(--text-white);
+    border: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-add:hover {
+    background: var(--accent-indigo-light);
+}
+
+.btn-add-amber {
+    background: var(--accent-amber);
+}
+
+.btn-add-amber:hover {
+    background: #fbbf24;
+}
+
+.panel-list {
+    overflow-y: auto;
+    flex: 1;
+    padding: 8px;
+}
+
+/* ---------- Panel Body (Properties) ---------- */
+.panel-body {
+    padding: 12px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.prop-group {
+    margin-bottom: 14px;
+}
+
+.prop-group:last-child {
+    margin-bottom: 0;
+}
+
+.prop-label {
+    display: block;
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+.prop-select {
+    width: 100%;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    padding: 6px 8px;
+    color: var(--text-primary);
+    font-size: 12px;
+    outline: none;
+    transition: all 0.15s ease;
+    font-family: var(--font-sans);
+    cursor: pointer;
+}
+
+.prop-select:hover {
+    border-color: var(--border-light);
+}
+
+.prop-select:focus {
+    border-color: var(--accent-indigo);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.color-inputs {
+    display: flex;
+    gap: 8px;
+}
+
+.color-picker {
+    flex: 1;
+    height: 32px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: 2px;
+}
+
+.color-picker:hover {
+    border-color: var(--border-light);
+}
+
+.color-hex {
+    width: 80px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    padding: 6px 8px;
+    color: var(--text-primary);
+    font-size: 12px;
+    font-family: var(--font-mono);
+    text-align: center;
+    outline: none;
+    transition: all 0.15s ease;
+}
+
+.color-hex:focus {
+    border-color: var(--accent-indigo);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.prop-range {
+    width: 100%;
+    accent-color: var(--accent-indigo);
+    height: 4px;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.range-value {
+    text-align: right;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    font-family: var(--font-mono);
+}
+
+/* ============================================
+   LAYOUT TABS - FIXED ABOVE STATUS BAR
+   ============================================ */
+.layout-tabs {
+    position: fixed;
+    bottom: calc(var(--command-height) + var(--status-height));
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0;
+    z-index: 400;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    height: var(--layout-tabs-height);
+    align-items: center;
+}
+
+.layout-tab {
+    padding: 6px 16px;
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--border-color);
+    font-size: 11px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: var(--font-sans);
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.layout-tab:last-child {
+    border-right: none;
+}
+
+.layout-tab:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.layout-tab.active {
+    background: var(--bg-active);
+    color: var(--accent-indigo-light);
+    font-weight: 700;
+}
+
+/* ============================================
+   ANNOTATION SCALE - FIXED ABOVE STATUS BAR
+   ============================================ */
+.anno-scale {
+    position: fixed;
+    bottom: calc(var(--command-height) + var(--status-height));
+    right: 0;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    border-right: none;
+    padding: 6px 12px;
+    font-size: 11px;
+    color: var(--text-primary);
+    z-index: 400;
+    font-family: var(--font-mono);
+    height: var(--layout-tabs-height);
+    display: flex;
+    align-items: center;
+}
+
+.anno-scale i {
+    color: var(--accent-indigo-light);
+    margin-right: 8px;
+}
+
+/* ============================================
+   STATUS BAR - FIXED ABOVE COMMAND LINE
+   ============================================ */
+.status-bar {
+    position: fixed;
+    bottom: var(--command-height);
+    left: var(--toolbar-width);
+    right: 0;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    font-size: 11px;
+    color: var(--text-secondary);
+    z-index: 500;
+    height: var(--status-height);
+    font-family: var(--font-mono);
+    overflow-x: auto;
+}
+
+.status-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 12px;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    border-right: 1px solid var(--border-color);
+    height: 100%;
+}
+
+.status-bar-item:last-child {
+    border-right: none;
+}
+
+.status-bar-item:hover {
+    background: var(--bg-tertiary);
+}
+
+.status-bar-item i {
+    color: var(--accent-indigo-light);
+    font-size: 10px;
+}
+
+.status-bar-item.active {
+    background: var(--bg-active);
+    color: var(--accent-indigo-light);
+}
+
+/* ============================================
+   COMMAND LINE - FIXED BOTTOM, FULL WIDTH
+   ============================================ */
+.command-line {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--command-height);
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    padding: 0 16px;
+    z-index: 600;
+    display: flex;
+    align-items: center;
+}
+
+.command-line-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.command-label {
+    color: var(--accent-indigo-light);
+    font-size: 11px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.command-input {
+    flex: 1;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    font-size: 12px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    outline: none;
+    transition: all 0.15s ease;
+    height: 28px;
+}
+
+.command-input:hover {
+    border-color: var(--border-light);
+}
+
+.command-input:focus {
+    border-color: var(--accent-indigo);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.command-input::placeholder {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.command-history-btn {
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.15s ease;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.command-history-btn:hover {
+    color: var(--text-primary);
+}
+
+/* ============================================
+   MODALS
+   ============================================ */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.95);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-title i {
+    color: var(--accent-indigo-light);
+}
+
+.modal-subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.modal-text {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.modal-text strong {
+    color: var(--text-primary);
+}
+
+.modal-info {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.modal-close {
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.15s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+}
+
+/* ---------- Modal Buttons ---------- */
+.btn-primary {
+    background: var(--accent-indigo);
+    color: var(--text-white);
+    border: none;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: var(--font-sans);
+}
+
+.btn-primary:hover {
+    background: var(--accent-indigo-light);
+}
+
+.btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: var(--font-sans);
+}
+
+.btn-secondary:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-light);
+}
+
+.btn-purple {
+    background: var(--accent-purple);
+    color: var(--text-white);
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: var(--font-sans);
+}
+
+.btn-purple:hover {
+    background: var(--accent-purple-light);
+}
+
+.w-full {
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ---------- Share Modal ---------- */
+.share-input-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.share-input {
+    flex: 1;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    padding: 10px 12px;
+    color: var(--text-primary);
+    font-size: 12px;
+    font-family: var(--font-mono);
+    outline: none;
+    transition: all 0.15s ease;
+}
+
+.share-input:focus {
+    border-color: var(--accent-indigo);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.share-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.share-actions .btn-secondary,
+.share-actions .btn-primary {
+    flex: 1;
+    justify-content: center;
+}
+
+/* ---------- Shortcuts Grid ---------- */
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.shortcuts-category {
+    color: var(--accent-indigo-light);
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.shortcuts-list {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 2;
+}
+
+.shortcuts-list div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.shortcut-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    padding: 2px 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-primary);
+    min-width: 32px;
+    text-align: center;
+}
+
+/* ---------- Tips List ---------- */
+.tips-list {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.tip-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    padding: 8px;
+    transition: background 0.15s ease;
+}
+
+.tip-item:hover {
+    background: var(--bg-primary);
+}
+
+.tip-item i {
+    margin-top: 2px;
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+.tip-item div {
+    flex: 1;
+}
+
+.tip-item strong {
+    color: var(--text-primary);
+}
+
+.tip-item code {
+    background: var(--bg-primary);
+    padding: 2px 6px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent-amber);
+    border: 1px solid var(--border-color);
+}
+
+/* ---------- Recent Files ---------- */
+.recent-files-list {
+    margin-top: 8px;
+}
+
+.empty-text {
+    color: var(--text-muted);
+    font-size: 14px;
+    text-align: center;
+    padding: 24px;
+}
+
+/* ============================================
+   COORDINATE DIALOG
+   ============================================ */
+.coord-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    z-index: 10002;
+    min-width: 300px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.coord-dialog h4 {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+}
+
+.coord-dialog h4 i {
+    color: var(--accent-indigo-light);
+}
+
+.coord-dialog input {
+    width: 100%;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    padding: 10px 12px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    margin-bottom: 10px;
+    outline: none;
+    transition: all 0.15s ease;
+}
+
+.coord-dialog input:focus {
+    border-color: var(--accent-indigo);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.coord-dialog input::placeholder {
+    color: var(--text-muted);
+}
+
+.coord-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.coord-actions button {
+    flex: 1;
+}
+
+/* ============================================
+   INDICATORS & OVERLAYS
+   ============================================ */
+.live-point {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--accent-orange);
+    background: var(--accent-orange);
+    pointer-events: none;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+    transition: all 0.1s ease;
+}
+
+.endpoint-marker {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-green);
+    border: 2px solid var(--text-white);
+    pointer-events: none;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+}
+
+.snap-indicator {
+    position: fixed;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--accent-green);
+    pointer-events: none;
+    z-index: 998;
+    transform: translate(-50%, -50%);
+    animation: snapPulse 0.5s ease infinite;
+}
+
+@keyframes snapPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.7; }
+}
+
+.save-indicator {
+    position: fixed;
+    top: 60px;
+    right: 16px;
+    background: var(--accent-green);
+    color: var(--text-white);
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    z-index: 10000;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.save-indicator.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.auto-save-indicator {
+    position: fixed;
+    top: 60px;
+    right: 120px;
+    color: var(--accent-green);
+    font-size: 11px;
+    opacity: 0;
+    animation: autoSavePulse 2s ease infinite;
+    z-index: 10000;
+    pointer-events: none;
+    font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+@keyframes autoSavePulse {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* ---------- Command History ---------- */
+.command-history {
+    position: fixed;
+    bottom: var(--command-height);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    max-height: 200px;
+    overflow-y: auto;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    padding: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    z-index: 700;
+    display: none;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.command-history.visible {
+    display: block;
+}
+
+.command-history-item {
+    padding: 6px 10px;
+    color: var(--text-secondary);
+    transition: background 0.15s ease;
+    cursor: pointer;
+}
+
+.command-history-item:hover {
+    background: var(--bg-primary);
+}
+
+.command-history-item.error {
+    color: var(--accent-red);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.command-history-item.success {
+    color: var(--accent-green);
+    background: rgba(34, 197, 94, 0.1);
+}
+
+/* ---------- Tooltip ---------- */
+.tooltip {
+    position: fixed;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    font-size: 11px;
+    color: var(--text-primary);
+    z-index: 10001;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    font-family: var(--font-sans);
+}
+
+/* ---------- Quick Properties ---------- */
+.quick-props {
+    position: fixed;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-active);
+    padding: 10px 14px;
+    font-size: 11px;
+    z-index: 999;
+    pointer-events: none;
+    min-width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+}
+
+/* ---------- Measure Result ---------- */
+.measure-result {
+    position: fixed;
+    background: var(--accent-orange);
+    color: var(--text-white);
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    z-index: 999;
+    pointer-events: none;
+    font-family: var(--font-mono);
+}
+
+/* ---------- Polar Line ---------- */
+.polar-line {
+    position: fixed;
+    pointer-events: none;
+    z-index: 50;
+    background: rgba(249, 115, 22, 0.3);
+    transform-origin: left center;
+    height: 1px;
+}
+
+/* ---------- Selection Box ---------- */
+.selection-box {
+    position: absolute;
+    border: 1px solid var(--accent-indigo-dark);
+    background: rgba(79, 70, 229, 0.1);
+    pointer-events: none;
+}
+
+/* ---------- Ortho Lines ---------- */
+.cursor-ortho-h {
+    position: fixed;
+    height: 1px;
+    background: rgba(249, 115, 22, 0.5);
+    pointer-events: none;
+    z-index: 49;
+}
+
+.cursor-ortho-v {
+    position: fixed;
+    width: 1px;
+    background: rgba(249, 115, 22, 0.5);
+    pointer-events: none;
+    z-index: 49;
+}
+
+/* ---------- Group Indicator ---------- */
+.group-indicator {
+    position: fixed;
+    background: var(--accent-purple);
+    color: var(--text-white);
+    padding: 4px 10px;
+    font-size: 10px;
+    z-index: 998;
+    pointer-events: none;
+    font-family: var(--font-mono);
+    font-weight: 700;
+}
+
+/* ---------- Bounds Indicator ---------- */
+.bounds-indicator {
+    position: absolute;
+    border: 2px dashed rgba(239, 68, 68, 0.5);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* ============================================
+   LAYER ITEMS
+   ============================================ */
+.layer-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 12px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid transparent;
+}
+
+.layer-item:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.layer-item.active {
+    background: var(--bg-active);
+    color: var(--accent-indigo-light);
+    border-bottom: 1px solid var(--border-active);
+}
+
+.layer-color {
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--border-light);
+    flex-shrink: 0;
+}
+
+/* ============================================
+   MATERIAL ITEMS
+   ============================================ */
+.material-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 12px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid transparent;
+}
+
+.material-item:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.material-item.active {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--accent-amber);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.material-color {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border-light);
+    flex-shrink: 0;
+}
+
+/* ============================================
+   CONTEXT MENU
+   ============================================ */
+.context-menu {
+    position: fixed;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 4px 0;
+    z-index: 10000;
+    min-width: 180px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.context-menu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--text-primary);
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.context-menu-item:hover {
+    background: var(--bg-active);
+    color: var(--accent-indigo-light);
+}
+
+.context-menu-item i {
+    width: 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.context-menu-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 4px 0;
+}
+
+/* ============================================
+   DYNAMIC INPUT BOX
+   ============================================ */
+.dynamic-input-box {
+    position: fixed;
+    background: var(--bg-secondary);
+    border: 2px solid var(--accent-orange);
+    padding: 12px 16px;
+    z-index: 9999;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    min-width: 220px;
+    color: var(--accent-amber);
+}
+
+.dynamic-input-box input {
+    background: var(--bg-primary);
+    border: 1px solid var(--accent-orange);
+    color: var(--accent-amber);
+    padding: 8px 10px;
+    outline: none;
+    width: 100%;
+    font-size: 13px;
+    font-family: var(--font-mono);
+    margin-top: 8px;
+}
+
+.dynamic-input-box input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ============================================
+   RECENT FILES
+   ============================================ */
+.recent-file-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.recent-file-item:last-child {
+    border-bottom: none;
+}
+
+.recent-file-item:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.recent-file-item i {
+    color: var(--accent-indigo-light);
+    font-size: 14px;
+}
+
+/* ============================================
+   BLOCK LIBRARY
+   ============================================ */
+.block-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.block-item:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--border-light);
+    color: var(--text-primary);
+}
+
+.block-item img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 6px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ============================================
+   DIMENSION TEXT
+   ============================================ */
+.dimension-text {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    fill: var(--accent-amber);
+}
+
+.arc-path {
+    fill: none;
+    stroke-linecap: round;
+}
+
+/* ============================================
+   FILE LOADED ANIMATION
+   ============================================ */
+.file-loaded {
+    animation: fileLoaded 0.5s ease;
+}
+
+@keyframes fileLoaded {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 768px) {
+    :root {
+        --toolbar-width: 48px;
+        --panel-width: 220px;
+    }
+
+    /* Side panels float over the canvas rather than pushing it, but a
+       fixed 220px still swallows most of a narrow screen — cap them to
+       the viewport so the canvas underneath stays reachable. */
+    .side-panel {
+        max-width: 78vw;
+    }
+
+    .mode-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .header {
+        padding: 0 8px;
+    }
+
+    .header-left {
+        gap: 8px;
+    }
+
+    .menu-item {
+        padding: 0 6px;
+        font-size: 11px;
+    }
+
+    .status-bar {
+        padding: 0 8px;
+        font-size: 10px;
+    }
+
+    .status-bar-item {
+        padding: 0 8px;
+    }
+
+    .command-line {
+        padding: 0 8px;
+    }
+
+    .shortcuts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --toolbar-width: 44px;
+        --panel-width: 170px;
+    }
+
+    .side-panel {
+        max-width: 88vw;
+    }
+}
+
+/* ============================================
+   3D ARCHITECTURAL STUDIO — ADDITIVE EXTENSION
+   Full-screen overlay toggled by .asaf-mode-3d on <body>, layered on top
+   of the existing dashboard/workspace toggle (see the DASHBOARD rules
+   above): only takes effect once a file's workspace is already active.
+   ============================================ */
+#asaf-3d-studio-root { display: none; }
+body.asaf-mode-3d.asaf-workspace-active > *:not(#asaf-3d-studio-root):not(#asaf-dashboard-root) {
+    display: none !important;
+}
+body.asaf-mode-3d.asaf-workspace-active #asaf-3d-studio-root {
+    display: flex !important;
+}
+
+#asaf-3d-studio-root {
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+    flex-direction: column;
+    background: #0f172a;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+}
+
+.a3d-toolbar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+}
+.a3d-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-right: 8px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+.a3d-toolbar button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 12px;
+    cursor: pointer;
+}
+.a3d-toolbar button:hover { border-color: var(--accent-indigo); }
+.a3d-toolbar-spacer { flex: 1; }
+#a3d-close { color: var(--accent-amber); }
+
+.a3d-body {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+}
+.a3d-stage {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+}
+.a3d-stage canvas { display: block; width: 100%; height: 100%; }
+
+.a3d-form-panel {
+    width: 300px;
+    flex-shrink: 0;
+    background: var(--bg-secondary);
+    border-left: 1px solid var(--border-color);
+    padding: 16px;
+    overflow-y: auto;
+}
+.a3d-form-panel h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+.a3d-form-empty {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+.a3d-form-note {
+    font-size: 11px;
+    color: var(--accent-amber);
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+.a3d-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+.a3d-field input, .a3d-field select {
+    padding: 7px 8px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 13px;
+}
+.a3d-create {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    background: var(--accent-indigo);
+    color: #fff;
+    border: none;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+}
+.a3d-create:hover { background: var(--accent-indigo-dark); }
+.a3d-create:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.a3d-status {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+/* Header toggle button (2D/3D) */
+#asaf-3d-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    margin-right: 8px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 11px;
+}
+#asaf-3d-toggle:hover { color: var(--text-primary); }
+#asaf-3d-toggle.active { border-color: var(--accent-indigo); color: var(--accent-indigo-light); }
+
+@media (max-width: 900px) {
+    .a3d-form-panel { width: 240px; }
+}
+@media (max-width: 700px) {
+    .a3d-body { flex-direction: column; }
+    .a3d-form-panel { width: 100%; max-height: 42vh; border-left: none; border-top: 1px solid var(--border-color); }
+    .a3d-title { display: none; }
+    #asaf-3d-toggle span { display: none; }
+}
+
+/* ============================================
+   LIGHT THEME (Optional)
+   ============================================ */
+.theme-light body {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.theme-light .header,
+.theme-light .side-panel,
+.theme-light .toolbar,
+.theme-light .status-bar,
+.theme-light .command-line,
+.theme-light .modal-content,
+.theme-light .layout-tabs,
+.theme-light .anno-scale,
+.theme-light .command-history,
+.theme-light .tooltip,
+.theme-light .quick-props,
+.theme-light .context-menu,
+.theme-light .dynamic-input-box,
+.theme-light .coord-dialog {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #1e293b;
+}
+
+.theme-light .menu-dropdown {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+.theme-light .menu-option:hover {
+    background: #f1f5f9;
+}
+
+.theme-light .prop-select,
+.theme-light .color-hex,
+.theme-light .share-input,
+.theme-light .coord-dialog input,
+.theme-light .command-input {
+    background: #f8fafc;
+    color: #1e293b;
+    border-color: #e2e8f0;
+}
+.wonderchat-searchbar {
+    background: #ffffff;
+    color: #1e293b;
+    border-color: #e2e8f0;
+}
+/* WebCAD 2026 additive extension UI */
+.webcad-extension-panel{position:fixed;right:24px;top:90px;width:330px;max-width:calc(100vw - 48px);z-index:9999;background:#172033;color:#e5e7eb;border:1px solid #475569;box-shadow:0 12px 36px #0008;font:14px Arial,sans-serif}
+.webcad-panel-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#24324a;border-bottom:1px solid #475569}
+.webcad-panel-head button{background:transparent;color:inherit;border:0;font-size:20px;cursor:pointer}.webcad-panel-body{padding:14px}.webcad-panel-body button{padding:7px 10px;background:#334155;color:#fff;border:1px solid #64748b;cursor:pointer}
+
+/* WebCAD additive responsive layer - appended only */
+.webcad-extension-panel{position:fixed;inset:70px 20px auto auto;z-index:10000;width:min(720px,calc(100vw - 40px));max-height:calc(100vh - 100px);overflow:auto;background:#111827;color:#e5e7eb;border:1px solid #475569;box-shadow:0 18px 60px #0008}
+.webcad-panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:#1e293b;position:sticky;top:0}.webcad-panel-head button{background:transparent;color:inherit;border:0;font-size:24px;cursor:pointer}.webcad-panel-body{padding:16px}.webcad-panel-body button,.webcad-panel-body input,.webcad-panel-body select{max-width:100%;margin:5px;padding:8px;background:#0f172a;color:#e5e7eb;border:1px solid #64748b}.webcad-3d-shell{display:grid;grid-template-columns:190px minmax(0,1fr);gap:10px;min-height:420px}.webcad-3d-tools{display:flex;flex-direction:column;gap:6px}.webcad-3d-tools button{margin:0;text-align:left}.webcad-3d-stage{position:relative;min-height:420px;background:#020617;border:1px solid #475569;overflow:hidden}.webcad-3d-stage canvas{display:block;width:100%;height:100%;min-height:420px}.webcad-3d-status{font-size:12px;color:#94a3b8;margin-top:8px}
+@media (max-width:900px){.header-left{flex-wrap:wrap;max-width:100%;overflow:visible}.menu-item{font-size:12px}.webcad-extension-panel{inset:60px 10px auto 10px;width:auto}.webcad-3d-shell{grid-template-columns:1fr}.webcad-3d-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.webcad-3d-stage{min-height:55vh}}
+@media (max-width:560px){.webcad-3d-tools{grid-template-columns:1fr}.webcad-panel-body{padding:10px}.webcad-3d-stage canvas{min-height:360px}}
+
+/* ============================================
+   DASHBOARD — ADDITIVE EXTENSION
+   Renders in front of the CAD workspace. Every existing workspace
+   element (header, toolbar, canvas, panels, modals...) is a direct
+   child of <body>, so a single gate gets used for the show/hide
+   toggle instead of touching each element's own display rules:
+     - By default (no .asaf-workspace-active on <body>) every
+       workspace element is force-hidden, so there is no flash of the
+       CAD UI before this stylesheet or the dashboard script runs.
+     - Once the dashboard script adds .asaf-workspace-active (a file
+       was opened or created), this rule simply stops matching and
+       every element falls back to its OWN normal display rule
+       (.header{display:flex} etc.) exactly as before — no need to
+       fight the cascade with `revert`, which would have skipped
+       those component rules entirely and reset elements to plain
+       browser defaults (e.g. header becoming display:block).
+   ============================================ */
+body:not(.asaf-workspace-active) > *:not(#asaf-dashboard-root) { display: none !important; }
+body.asaf-workspace-active #asaf-dashboard-root { display: none !important; }
+#asaf-dashboard-root { display: flex; }
+
+#asaf-dashboard-root {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    flex-direction: column;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+}
+
+.asaf-dash-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.asaf-dash-logo h1 {
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: -0.025em;
+}
+.asaf-dash-logo h1 span { color: var(--accent-indigo-light); }
+.asaf-dash-subtitle {
+    display: block;
+    font-size: 10px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    letter-spacing: 0.15em;
+}
+
+.asaf-dash-newbtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--accent-indigo);
+    color: #fff;
+    border: none;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.asaf-dash-newbtn:hover { background: var(--accent-indigo-dark); }
+
+.asaf-dash-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.asaf-dash-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.asaf-dash-search i {
+    position: absolute;
+    left: 10px;
+    color: var(--text-muted);
+    font-size: 12px;
+    pointer-events: none;
+}
+.asaf-dash-search input {
+    width: 240px;
+    padding: 8px 10px 8px 28px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 13px;
+}
+.asaf-dash-search input:focus {
+    outline: none;
+    border-color: var(--accent-indigo);
+}
+
+.asaf-dash-sort {
+    padding: 8px 10px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.asaf-dash-summary {
+    flex-shrink: 0;
+    padding: 8px 32px;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    min-height: 1px;
+}
+
+.asaf-count {
+    color: var(--text-muted);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.asaf-dash-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 32px 48px;
+}
+
+.asaf-dash-section { margin-bottom: 36px; }
+.asaf-dash-section h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+.asaf-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(clamp(150px, 24vw, 230px), 1fr));
+    gap: 16px;
+}
+
+.asaf-file-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: border-color 0.15s ease, transform 0.12s ease;
+}
+.asaf-file-card:hover { border-color: var(--accent-indigo); transform: translateY(-2px); }
+
+.asaf-file-card-main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.asaf-file-card-thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        linear-gradient(135deg, rgba(99,102,241,0.10), transparent 60%),
+        var(--bg-tertiary);
+    color: var(--accent-indigo-light);
+    font-size: 28px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-color);
+}
+.asaf-file-card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* thumbnails are rendered on a dark canvas background already, so a
+       touch of contrast keeps thin CAD linework visible at card size */
+    filter: saturate(1.05) contrast(1.05);
+}
+
+.asaf-file-card-info {
+    min-width: 0;
+    padding: 10px 12px 12px;
+}
+.asaf-file-card-name {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.asaf-file-card-id {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.asaf-file-card-meta {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+.asaf-unsaved-tag { color: var(--accent-amber); }
+
+.asaf-file-card-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.12s ease;
+}
+.asaf-file-card:hover .asaf-file-card-actions,
+.asaf-file-card:focus-within .asaf-file-card-actions {
+    opacity: 1;
+}
+.asaf-file-card-actions button {
+    width: 28px;
+    height: 28px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 11px;
+    backdrop-filter: blur(2px);
+}
+.asaf-file-card-actions button:hover { background: var(--bg-tertiary); color: #fff; }
+
+/* Hover-to-reveal actions don't work on touch — keep them visible there,
+   and make them a comfortable tap size instead of a mouse-precision one. */
+@media (hover: none) {
+    .asaf-file-card-actions { opacity: 1; }
+    .asaf-file-card-actions button { width: 34px; height: 34px; font-size: 13px; }
+}
+
+.asaf-empty {
+    grid-column: 1 / -1;
+    color: var(--text-muted);
+    font-size: 13px;
+    padding: 18px;
+    border: 1px dashed var(--border-color);
+    text-align: center;
+}
+
+.asaf-file-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 8px;
+    padding-right: 8px;
+    border-right: 1px solid var(--border-color);
+}
+.asaf-file-badge button {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+.asaf-file-badge button:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+.asaf-current-file-name {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 900px) {
+    .asaf-dash-header { padding: 16px 20px; }
+    .asaf-dash-search input { width: 180px; }
+    .asaf-dash-body { padding: 20px; }
+}
+
+@media (max-width: 700px) {
+    .asaf-dash-header { padding: 14px 16px; flex-wrap: wrap; gap: 10px; }
+    .asaf-dash-controls { width: 100%; flex-wrap: wrap; }
+    .asaf-dash-search { flex: 1; min-width: 140px; }
+    .asaf-dash-search input { width: 100%; }
+    .asaf-dash-sort { flex-shrink: 0; }
+    .asaf-dash-summary { padding: 8px 16px; }
+    .asaf-dash-body { padding: 16px; }
+    .asaf-dash-section { margin-bottom: 28px; }
+    .asaf-current-file-name { display: none; }
+}
+
+@media (max-width: 480px) {
+    .asaf-dash-logo h1 { font-size: 19px; }
+    .asaf-dash-header { padding: 12px; }
+    .asaf-dash-controls { gap: 8px; }
+    .asaf-dash-newbtn { flex-basis: 100%; justify-content: center; }
+    .asaf-dash-sort { flex: 1; }
+    .asaf-dash-body { padding: 12px; }
+    .asaf-dash-section h2 { font-size: 12px; margin-bottom: 10px; }
+    .asaf-card-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+    .asaf-file-card-info { padding: 8px 10px 10px; }
+    .asaf-file-card-name { font-size: 13px; }
+    .asaf-file-card-meta { font-size: 10px; }
+}
