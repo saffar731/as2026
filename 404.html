@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>404 · Page not found · WebCAD</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg-card: rgba(22, 31, 51, 0.72);
+            --border: rgba(148, 163, 184, 0.18);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-glow: rgba(99, 102, 241, 0.35);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--text);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Blueprint-style background grid, drawn purely with CSS gradients */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.07) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Soft glow orbs behind the card */
+        body::after {
+            content: "";
+            position: fixed;
+            width: 60vmax;
+            height: 60vmax;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, var(--accent-glow), transparent 60%);
+            filter: blur(40px);
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 0;
+            animation: drift 14s ease-in-out infinite alternate;
+        }
+
+        @keyframes drift {
+            from { transform: translate(-55%, -50%) scale(1); }
+            to   { transform: translate(-45%, -52%) scale(1.08); }
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            width: min(560px, 100%);
+            padding: clamp(28px, 5vw, 48px);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+            text-align: center;
+            animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(16px) scale(0.98); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+        .brand-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-light);
+            box-shadow: 0 0 12px var(--accent-light);
+        }
+
+        .code {
+            font-size: clamp(88px, 18vw, 140px);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin: 0;
+            background: linear-gradient(135deg, #c7d2fe 0%, var(--accent-light) 45%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-variant-numeric: tabular-nums;
+        }
+
+        h1 {
+            margin: 12px 0 10px;
+            font-size: clamp(20px, 3.2vw, 26px);
+            font-weight: 700;
+        }
+
+        p {
+            margin: 0 auto 28px;
+            max-width: 40ch;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: rgba(148, 163, 184, 0.06);
+            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .btn:hover { transform: translateY(-1px); border-color: var(--accent); background: rgba(99, 102, 241, 0.12); }
+        .btn:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 3px; }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 10px 30px -10px var(--accent-glow);
+        }
+        .btn-primary:hover { background: #4f46e5; border-color: #4f46e5; box-shadow: 0 14px 34px -10px var(--accent-glow); }
+
+        .hint {
+            margin-top: 28px;
+            font-size: 12px;
+            color: var(--muted);
+            opacity: 0.8;
+        }
+        .hint code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            background: rgba(148, 163, 184, 0.1);
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        /* Respect users who prefer less motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+        }
+
+        @media (max-width: 420px) {
+            .actions { flex-direction: column; }
+            .btn { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <main class="card" role="main">
+        <div class="brand"><span class="brand-dot" aria-hidden="true"></span>WebCAD</div>
+        <p class="code" aria-hidden="true">404</p>
+        <h1>This page isn't on the drawing sheet</h1>
+        <p>The address you followed doesn't match any page. It may have been moved, renamed, or never existed.</p>
+        <div class="actions">
+            <a class="btn btn-primary" href="/">Back to WebCAD</a>
+            <button type="button" class="btn" id="go-back">Go back</button>
+        </div>
+    </main>
+    <script>
+        document.getElementById('go-back').addEventListener('click', function () {
+            if (history.length > 1) { history.back(); } else { window.location.href = '/'; }
+        });
+    </script>
+</body>
+</html>

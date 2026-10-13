@@ -1,0 +1,517 @@
+/* ==========================================================================
+   WEBCAD — LIGHT THEME (default), RIBBON, DROPDOWNS, TABS, RESPONSIVE LAYOUT
+   Load this file AFTER style.css. It overrides the palette and the components
+   that need a light look. No JavaScript is required for styling.
+   ========================================================================== */
+
+/* ---------- 1. Palettes: light (default) and dark ----------
+   The body class "theme-light" decides which palette applies. The button in the
+   header toggles that class, so both palettes must be defined here, not just one. */
+:root:has(body.theme-light) { color-scheme: light; }
+:root:not(:has(body.theme-light)) { color-scheme: dark; }
+
+body.theme-light {
+    --bg-primary: #eef2f7;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f4f6fa;
+    --bg-input: #ffffff;
+    --bg-hover: #e8edf5;
+    --bg-active: #eef2ff;
+    --bg-canvas: #ffffff;
+    --bg-soft: #fbfcfe;
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --text-white: #ffffff;
+
+    --accent-indigo: #4f46e5;
+    --accent-indigo-light: #6366f1;
+    --accent-indigo-dark: #4338ca;
+    --accent-soft: #eef2ff;
+    --accent-amber: #b45309;
+    --accent-green-tint: #ecfdf5;
+    --accent-green: #047857;
+
+    --border-color: #e2e8f0;
+    --border-light: #cbd5e1;
+    --border-focus: #6366f1;
+    --border-active: rgba(79, 70, 229, 0.35);
+
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.10), 0 2px 4px rgba(15, 23, 42, 0.05);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --ribbon-tab-h: 36px;
+    --ribbon-body-h: 74px;
+}
+
+body:not(.theme-light) {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #273449;
+    --bg-input: #0f172a;
+    --bg-hover: #334155;
+    --bg-active: rgba(99, 102, 241, 0.18);
+    --bg-canvas: #0b1220;
+    --bg-soft: #17223a;
+
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --text-muted: #7b8ba3;
+    --text-white: #ffffff;
+
+    --accent-indigo: #6366f1;
+    --accent-indigo-light: #818cf8;
+    --accent-indigo-dark: #4f46e5;
+    --accent-soft: rgba(99, 102, 241, 0.16);
+    --accent-amber: #f59e0b;
+    --accent-green-tint: rgba(16, 185, 129, 0.14);
+    --accent-green: #34d399;
+
+    --border-color: #334155;
+    --border-light: #475569;
+    --border-focus: #818cf8;
+    --border-active: rgba(129, 140, 248, 0.45);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --ribbon-tab-h: 36px;
+    --ribbon-body-h: 74px;
+}
+
+html {
+    background: var(--bg-primary);
+}
+html, body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 2. Header ---------- */
+.header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    padding: 0 12px;
+    gap: 8px;
+}
+/* The header sits above the ribbon, and menus are allowed to drop below the header.
+   Overflow must stay visible here, otherwise the dropdowns are clipped to the header's height. */
+.header {
+    position: relative;
+    z-index: 1000;
+    overflow: visible;
+}
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    min-width: 0;
+    overflow: visible;
+}
+.header-left > .menu-item { position: relative; }
+.menu-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 1100;
+}
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.logo { flex-shrink: 0; margin-right: 10px; }
+.logo-title { color: var(--text-primary); }
+.logo-accent { color: var(--accent-indigo); }
+.logo-subtitle { color: var(--text-muted); }
+
+/* Top-level menu buttons: text only, no icons (per request) */
+.header-left > .menu-item > span {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: background-color 0.15s ease, color 0.15s ease;
+    cursor: pointer;
+}
+.header-left > .menu-item:hover > span,
+.header-left > .menu-item:focus-within > span {
+    background: var(--accent-soft);
+    color: var(--accent-indigo);
+}
+
+/* Dropdown panel */
+.menu-dropdown {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    padding: 6px;
+    min-width: 240px;
+    overflow: hidden;
+}
+.menu-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background-color 0.12s ease;
+}
+.menu-option i {
+    width: 18px;
+    text-align: center;
+    color: var(--accent-indigo);
+    flex-shrink: 0;
+}
+.menu-option:hover { background: var(--accent-soft); }
+.menu-option .shortcut {
+    margin-left: auto;
+    padding-left: 16px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+.menu-divider {
+    height: 1px;
+    margin: 6px 4px;
+    background: var(--border-color);
+}
+
+/* Header icon buttons (theme, help, 3D toggle, undo/redo) */
+.header-btn,
+#asaf-3d-toggle {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+.header-btn:hover,
+#asaf-3d-toggle:hover {
+    background: var(--accent-soft);
+    border-color: var(--border-active);
+    color: var(--accent-indigo);
+    box-shadow: var(--shadow-sm);
+}
+#asaf-3d-toggle.active { background: var(--accent-soft); border-color: var(--accent-indigo-light); color: var(--accent-indigo); }
+
+.asaf-file-badge button,
+.asaf-file-badge { border-color: var(--border-color); }
+.asaf-current-file-name { color: var(--text-muted); }
+
+/* ---------- 3. Ribbon (always visible in the workspace) ---------- */
+#asaf-ribbon-root {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    z-index: 950;
+    display: none;                    /* only in the workspace (see rule below) */
+    flex-direction: column;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+body.asaf-workspace-active #asaf-ribbon-root { display: flex !important; }
+
+.asaf-rb-tabs {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+    height: var(--ribbon-tab-h);
+    padding: 0 8px;
+    border-bottom: 1px solid var(--border-color);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.asaf-rb-tabs::-webkit-scrollbar { display: none; }
+.asaf-rb-tab {
+    flex-shrink: 0;
+    padding: 0 14px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-secondary);
+    font: 600 12.5px/1 'Inter', system-ui, sans-serif;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+.asaf-rb-tab:hover { color: var(--accent-indigo); background: var(--accent-soft); }
+.asaf-rb-tab.active { color: var(--accent-indigo); border-bottom-color: var(--accent-indigo); }
+.asaf-rb-tab:focus-visible { outline: 2px solid var(--accent-indigo-light); outline-offset: -2px; }
+
+.asaf-rb-tabs-spacer { flex: 1 0 12px; }
+
+/* Permanent "View Estimation" button, visible on every ribbon tab */
+.asaf-rb-estimate {
+    flex-shrink: 0;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin: 3px 0;
+    padding: 0 12px;
+    height: 28px;
+    background: var(--accent-indigo);
+    border: 1px solid var(--accent-indigo);
+    border-radius: 999px;
+    color: #ffffff;
+    font: 600 12px/1 'Inter', system-ui, sans-serif;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 4px 10px -4px rgba(79, 70, 229, 0.55);
+    transition: background-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+}
+.asaf-rb-estimate:hover { background: var(--accent-indigo-dark); transform: translateY(-1px); box-shadow: 0 6px 14px -4px rgba(79, 70, 229, 0.6); }
+.asaf-rb-estimate:active { transform: translateY(0); }
+.asaf-rb-estimate:focus-visible { outline: 2px solid var(--accent-indigo-light); outline-offset: 2px; }
+.asaf-rb-estimate.active { background: var(--accent-indigo-dark); }
+.asaf-rb-estimate i { font-size: 12px; }
+
+.asaf-rb-panels { position: relative; overflow-x: auto; scrollbar-width: thin; }
+.asaf-rb-panel {
+    display: none;
+    align-items: stretch;
+    min-height: var(--ribbon-body-h);
+    padding: 6px 8px;
+    gap: 4px;
+}
+.asaf-rb-panel.active { display: flex; }
+
+.asaf-rb-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 10px;
+    border-right: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+.asaf-rb-group:last-child { border-right: none; }
+.asaf-rb-buttons { display: flex; align-items: center; gap: 2px; }
+.asaf-rb-caption {
+    text-align: center;
+    margin-top: 4px;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.asaf-rb-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 58px;
+    height: 50px;
+    padding: 4px 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font: 500 11px/1.1 'Inter', system-ui, sans-serif;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
+}
+.asaf-rb-btn i { font-size: 16px; color: var(--accent-indigo); }
+.asaf-rb-btn:hover {
+    background: var(--accent-soft);
+    border-color: var(--border-active);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+.asaf-rb-btn:active { transform: translateY(0); }
+.asaf-rb-btn.active { background: var(--accent-indigo); border-color: var(--accent-indigo); color: #ffffff; }
+.asaf-rb-btn.active i { color: #ffffff; }
+.asaf-rb-btn:focus-visible { outline: 2px solid var(--accent-indigo-light); outline-offset: 1px; }
+
+/* The old vertical toolbar is replaced by the ribbon */
+body.asaf-ribbon-active #draggable-toolbar { display: none !important; }
+body.asaf-ribbon-active { --toolbar-width: 0px; }
+
+/* ---------- 4. Drawing surface and canvas ---------- */
+#cad2d-canvas-container {
+    background: var(--bg-primary);
+    padding: 10px;
+}
+#infinite-canvas {
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* ---------- 5. Layout / Model / Estimation tabs ---------- */
+.layout-tabs {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+    height: var(--layout-tabs-height);
+    padding: 0 8px;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.layout-tabs::-webkit-scrollbar { display: none; }
+.layout-tab {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 14px;
+    background: transparent;
+    border: none;
+    border-top: 2px solid transparent;
+    color: var(--text-muted);
+    font: 500 12px/1 'Inter', system-ui, sans-serif;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+.layout-tab:hover { color: var(--accent-indigo); background: var(--accent-soft); }
+.layout-tab.active {
+    color: var(--accent-indigo);
+    background: var(--bg-canvas);
+    border-top-color: var(--accent-indigo);
+    font-weight: 600;
+}
+#add-layout { color: var(--text-muted); }
+#add-layout:hover { color: var(--accent-indigo); }
+
+/* Estimation tab: visually distinct from layouts */
+.layout-tab[data-layout="estimation"] { color: var(--accent-green); }
+.layout-tab[data-layout="estimation"]:hover { color: var(--accent-green); background: var(--accent-green-tint); }
+.layout-tab[data-layout="estimation"].active {
+    color: var(--accent-green);
+    border-top-color: #10b981;
+    background: var(--accent-green-tint);
+}
+
+/* ---------- 6. Status bar and command line ---------- */
+.status-bar {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.status-bar::-webkit-scrollbar { display: none; }
+.command-line {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+}
+.command-line input,
+.command-line textarea {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+}
+
+/* ---------- 7. Side panels, dashboard, modals ---------- */
+.side-panel,
+.panel-left,
+.panel-right,
+.panel-header {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+.side-panel, .panel-left, .panel-right {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+}
+
+#asaf-dashboard-root { background: var(--bg-primary); color: var(--text-primary); }
+.asaf-file-card,
+.asaf-dash-header,
+.asaf-dash-summary { background: var(--bg-secondary); border-color: var(--border-color); }
+.asaf-file-card { border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.asaf-file-card:hover { box-shadow: var(--shadow-md); }
+.asaf-dash-newbtn,
+.asaf-dash-search input,
+.asaf-dash-sort { border-radius: var(--radius-sm); }
+
+.modal-overlay { background: rgba(15, 23, 42, 0.35); }
+.modal-card { background: var(--bg-secondary); border-radius: var(--radius-md); box-shadow: var(--shadow-md); }
+
+/* ---------- 8. Estimation panel (split view and full tab) ---------- */
+#asaf-est-panel {
+    background: var(--bg-secondary);
+    border-left: 1px solid var(--border-color);
+    box-shadow: -6px 0 18px -12px rgba(0, 0, 0, 0.35);
+}
+.asaf-est-head { background: var(--bg-secondary); border-bottom-color: var(--border-color); }
+.asaf-est-controls {
+    background: var(--bg-soft);
+    border-bottom-color: var(--border-color);
+    color: var(--text-secondary);
+}
+.asaf-est-controls select,
+.asaf-est-controls input {
+    background: var(--bg-canvas);
+    border-color: var(--border-light);
+    color: var(--text-primary);
+    border-radius: 6px;
+}
+.asaf-est-controls select:focus,
+.asaf-est-controls input:focus { outline: 2px solid var(--accent-indigo-light); outline-offset: 0; }
+.asaf-est-btn { border-radius: var(--radius-sm); transition: background-color 0.15s ease, transform 0.12s ease; }
+.asaf-est-btn:hover { transform: translateY(-1px); }
+#asaf-est-close { border-radius: var(--radius-sm); background: var(--bg-secondary); color: var(--text-secondary); }
+#asaf-est-close:hover { background: var(--accent-soft); color: var(--accent-indigo); }
+
+/* Estimation as a full-width tab (set by webcad_estimation.js) */
+body.asaf-est-full #asaf-est-panel { left: 0; width: 100%; border-left: none; }
+body.asaf-est-full #cad2d-canvas-container { display: none; }
+
+/* ---------- 9. Responsive ---------- */
+@media (max-width: 1200px) {
+    .asaf-rb-btn { min-width: 48px; }
+    .asaf-rb-btn span { display: none; }
+    .asaf-rb-caption { display: none; }
+    .logo-subtitle { display: none; }
+}
+
+@media (max-width: 900px) {
+    .header { padding: 0 8px; }
+    .header-left > .menu-item > span { padding: 6px 9px; font-size: 12.5px; }
+    .asaf-rb-estimate span { display: none; }
+    .asaf-rb-estimate { padding: 0 9px; }
+    #asaf-est-panel { left: 0; width: auto; }
+    body.asaf-est-visible #cad2d-canvas-container { display: none; }
+}
+
+@media (max-width: 600px) {
+    .logo-title { font-size: 15px; }
+    .header-left > .menu-item > span { padding: 6px 7px; font-size: 12px; }
+    .header-right .header-btn:not(#btn-undo):not(#btn-redo) { display: none; }
+    .asaf-rb-tab { padding: 0 10px; font-size: 12px; }
+    .asaf-rb-btn { min-width: 44px; height: 46px; }
+    .asaf-rb-btn i { font-size: 15px; }
+    .layout-tab { padding: 0 10px; }
+    .menu-dropdown { min-width: min(240px, 90vw); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+}
