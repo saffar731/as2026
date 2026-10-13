@@ -340,8 +340,8 @@ function exportToSafwatExcel() {
     let recentFiles = [];
 
     // Theme
-    let isDarkTheme = false; // light theme by default
-    if (document.body) document.body.classList.add('theme-light');
+        let isDarkTheme = true; // dark theme by default
+    if (document.body) document.body.classList.toggle('theme-light', !isDarkTheme);
 
     // Command history
     let commandHistory = [];
